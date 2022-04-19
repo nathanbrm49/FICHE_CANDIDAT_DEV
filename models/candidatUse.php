@@ -1,8 +1,8 @@
 <?php
 function createCandidat($pdoP,$values){
     $nom_de_la_formmation=htmlspecialchars(@$values["nom_de_la_formation"]);
-    $civilite=htmlspecialchars(@$values["civilite"]);
     $date_de_l_entretien=htmlspecialchars(@$values["date_de_l_entretien"]);
+    $civilite=htmlspecialchars(@$values["civilite"]);
     $nom=htmlspecialchars($values["nom"]);
     $prenom=htmlspecialchars($values["prenom"]);
     $nom_de_naissance=htmlspecialchars($values["nom_de_naissance"]);
@@ -19,7 +19,7 @@ function createCandidat($pdoP,$values){
     $annee_dernier_diplome=htmlspecialchars(@$values["annee_dernier_diplome"]);
     $intitule_diplome=htmlspecialchars(@$values["intitule_diplome"]);
     $lieu_de_naisssance=htmlspecialchars(@$values["lieu_de_naissance"]);
-    $nationnalite=htmlspecialchars(@$values["nationnalite"]);
+    $nationalite=htmlspecialchars(@$values["nationalite"]);
     $situation_familial=htmlspecialchars(@$values["situation_familial"]);
     $nbre_enfants=htmlspecialchars(@$values["nbre_enfants"]);
     $n_securite_sociale=htmlspecialchars(@$values["n_securite_sociale"]);
@@ -49,26 +49,66 @@ function createCandidat($pdoP,$values){
     $date_fin_emploie=htmlspecialchars(@$values["date_fin_emploie"]);
     $type_contrat=htmlspecialchars(@$values["type_contrat"]);
     $nom_employeur=htmlspecialchars(@$values["nom_employeur"]);
-    $id_coordinateur=htmlspecialchars(@$values["id_coordinateur"]);
-    $id_statut=htmlspecialchars(@$values["id_statut"]);
-    $id_entretien=htmlspecialchars(@$values["id_entretien"]);
     $autre=htmlspecialchars(@$values["autre"]);
 
 
 
-    $stmt = $pdoP->prepare("INSERT INTO 'candidats'  VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+    $stmt = $pdoP->prepare("INSERT INTO candidats (nom_de_la_formation , date_de_l_entretien, civilite, nom , prenom, nom_de_naissance, adresse, code_postal, ville, telephone_mobile, date_de_naissance, age, numero_pole_emploie, email, notes, niveau_de_formation, annee_dernier_diplome, intitule_diplome, lieu_de_naissance, nationalite, situation_familial, nbre_enfants) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+    /*,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,NULL,NULL,?,NULL,?)");*/
     $result = $stmt->execute(
         [
-            $nom_de_la_formmation, $date_de_l_entretien, $civilite, $nom, $prenom, $nom_de_naissance, $adresse, $code_postal, $ville, $telephone_mobile,
-            $date_de_naissance,$age, $numero_pole_emploie, $email, $notes, $niveau_de_formation, $annee_dernier_diplome,
-            $intitule_diplome, $lieu_de_naisssance, $nationnalite, $situation_familial, $nbre_enfants,
-            $n_securite_sociale, $regime, $ville_regime, $ville_rattachement, $rqth, $structure_acc,
-            $agence_pole_emploie, $inscrit_ml, $nom_ref_acc, $indem, $employeur, $personne_contact,
-            $mobilite, $ressources, $contraintes_familiales, $disponibilites, $date_debut_suivi,
-            $emploie_occupe, $date_debut_emploie, $date_fin_emploie, $type_contrat, $nom_employeur, $id_coordinateur, $id_statut,
-            $id_entretien, $autre, $n_devis, $dates_de_formations, $nbre_h_en_centre, $h_en_entreprise, $n_stagiaire
+            $nom_de_la_formmation,
+            $date_de_l_entretien,
+            $civilite,
+            $nom,
+            $prenom,
+            $nom_de_naissance,
+            $adresse,
+            $code_postal,
+            $ville,
+            $telephone_mobile,
+            $date_de_naissance,
+            $age,
+            $numero_pole_emploie,
+            $email,
+            $notes,
+            $niveau_de_formation,
+            $annee_dernier_diplome,
+            $intitule_diplome,
+            $lieu_de_naisssance,
+            $nationalite,
+            $situation_familial,
+            $nbre_enfants
+            /*$n_securite_sociale,
+            $regime,
+            $ville_regime,
+            $ville_rattachement,
+            $rqth,
+            $n_devis,
+            $dates_de_formations,
+            $nbre_h_en_centre,
+            $h_en_entreprise,
+            $n_stagiaire,
+            $structure_acc,
+            $agence_pole_emploie,
+            $inscrit_ml,
+            $nom_ref_acc,
+            $indem,
+            $employeur,
+            $personne_contact,
+            $mobilite,
+            $ressources,
+            $contraintes_familiales,
+            $disponibilites,
+            $date_debut_suivi,
+            $emploie_occupe,
+            $date_debut_emploie,
+            $date_fin_emploie,
+            $type_contrat,
+            $nom_employeur,
+            $autre */
         ]
-    );
+    ); 
 
     return $result ? $pdoP->lastInsertId() : false;
 }
